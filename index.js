@@ -1,7 +1,12 @@
 const express = require('express')
 const app = express()
-app.all('/', (req, res) => {
-    console.log("Just got a request!")
-    res.send('Yo!')
-})
-app.listen(process.env.PORT || 3000)
+
+var cors_proxy = require('cors-anywhere');
+cors_proxy.createServer({
+    originWhitelist: [], // Allow all origins
+    requireHeader: [],
+    removeHeaders: ['cookie', 'cookie2']
+}).listen(process.env.PORT || 80, process.env.HOST || '0.0.0.0', function() {
+    console.log('Running CORS Anywhere on ');
+});
+
